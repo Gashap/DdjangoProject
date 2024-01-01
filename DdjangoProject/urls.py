@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 from vacancies_website.views import *
 
-#
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name=''),

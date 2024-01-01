@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Последние вакансии</title>
+</head>
+<body bgcolor="white">
+    <header>
+        <p>
+            <img src="{% static '/images/logo.jpg' %}" width="64" height="64" alt="Логотип сайта">
+        </p>
+        
+        <ul class="site-navigation">
+            <li class="site-navigation-item">
+                <a href="{%  url '' %}">Главная</a>
+            </li>
+            <li class="site-navigation-item">
+                <a href="{%  url 'demand_page' %}">Востребованность</a>
+            </li>
+            <li class="site-navigation-item">
+                <a href="{%  url 'geography_page' %}">География</a>
+            </li>
+            <li class="site-navigation-item">
+                <a href="{%  url 'skills_page' %}">Навыки</a>
+            </li>
+            <li class="site-navigation-item">
+                <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        
+    </main>
+    <footer>
+        <div>ФИО студента: Штаппер Григорий Алексеевич</div>
+        <div>Академическая группа: РИ-220944</div>
+    </footer>
+</body>
+</html>

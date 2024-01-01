@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    width: auto;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.site-name{
+    margin-left: 20px;
+}
+
+nav {
+    background-color: #f2f2f2;
+    box-sizing: content-box;
+    padding: 15px;
+    flex: 1;
+    top: calc(8px + 7em);
+    bottom: 0;
+    overflow-y: auto;
+    min-width: auto;
+    }
+
+ul{
+    text-align: center;
+    position: fixed;
+    list-style: none;
+    font-size: 21px;
+}
+
+li{
+    padding: 10px;
+}
+
+main {
+    padding: 15px;
+    box-sizing: border-box;
+    flex: 4;
+    font-size: 21px;
+}
+
+p{
+    line-height: 30px;
+}
+
+.java-oop{
+    display: flex;
+    align-items: center;
+}
+
+.spring{
+    display: flex;
+    align-items: center;
+}
+
+.spring-txt{
+    padding-left: 15px;
+}
+
+.main-block{
+    min-height: 553px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    clear: both;
+}

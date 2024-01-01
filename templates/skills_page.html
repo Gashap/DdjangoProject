@@ -5,34 +5,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Навыки</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body bgcolor="white">
     <header>
         <p>
             <img src="{% static '/images/logo.jpg' %}" width="64" height="64" alt="Логотип сайта">
         </p>
-        
-        <ul class="site-navigation">
-            <li class="site-navigation-item">
-                <a href="{%  url '' %}">Главная</a>
-            </li>
-            <li class="site-navigation-item">
-                <a href="{%  url 'demand_page' %}">Востребованность</a>
-            </li>
-            <li class="site-navigation-item">
-                <a href="{%  url 'geography_page' %}">География</a>
-            </li>
-            <li class="site-navigation-item">
-                <a href="{%  url 'skills_page' %}">Навыки</a>
-            </li>
-            <li class="site-navigation-item">
-                <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
-            </li>
-        </ul>
+        <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
     </header>
-    <main>
-        
-    </main>
+    <div class="main-block" style="display: flex">
+        <nav>
+            <ul class="site-navigation">
+                <li class="site-navigation-item">
+                    <a href="{%  url '' %}">Главная</a>
+                </li>
+                <li class="site-navigation-item">
+                    <a href="{%  url 'demand_page' %}">Востребованность</a>
+                </li>
+                <li class="site-navigation-item">
+                    <a href="{%  url 'geography_page' %}">География</a>
+                </li>
+                <li class="site-navigation-item">
+                    <a href="{%  url 'skills_page' %}">Навыки</a>
+                </li>
+                <li class="site-navigation-item">
+                    <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <h2>ТОП-20 навыков</h2>
+            <p>Тут будет таблица</p>
+            <p>Тут будет график</p>
+        </main>
+    </div>
     <footer>
         <div>ФИО студента: Штаппер Григорий Алексеевич</div>
         <div>Академическая группа: РИ-220944</div>

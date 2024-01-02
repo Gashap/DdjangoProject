@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from vacancies_website.models import Currency
+
+admin.site.register(Currency)

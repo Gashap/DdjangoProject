@@ -19,14 +19,17 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from vacancies_website.views import *
+from vacancies_website import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page, name=''),
-    path('demain_page/', demand_page, name='demand_page'),
-    path('geography_page/', geography_page, name='geography_page'),
-    path('skills_page', skills_page, name='skills_page'),
-    path('vacancies_page', vacancies_page, name='vacancies_page')
+    path('', views.home_page, name=''),
+    path('demain/', views.demand_page, name='demand_page'),
+    path('geography/', views.geography_page, name='geography_page'),
+    path('skills/', views.skills_page, name='skills_page'),
+    path('vacancies/', views.vacancies_page, name='vacancies_page')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,43 +1,75 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    width: auto;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
 }
 
-header {
+.page-header {
     display: flex;
     align-items: center;
     background-color: #333;
     color: #fff;
     padding: 10px;
     text-align: center;
+    width: auto;
+}
 
+.logo {
+    margin-left: 20px;
+    width: 70px;
+    height: 70px;
 }
 
 .site-name{
-    margin-left: 20px;
+    font-size: 34px;
+    margin-left: 22px;
 }
 
-nav {
+.block {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1366px;
+    margin: 0 auto;
+    min-height: 300px;
+}
+
+.main-navigation {
     background-color: #f2f2f2;
     box-sizing: content-box;
+    width: auto;
     padding: 15px;
     flex: 1;
     top: calc(8px + 7em);
-    bottom: 0;
-    overflow-y: auto;
-    min-width: auto;
+    overflow-x: auto;
     }
 
-ul{
+.site-navigation {
     text-align: center;
-    position: fixed;
+    z-index: 100;
+    position: absolute;
     list-style: none;
-    font-size: 21px;
+    font-size:21px;
 }
 
-li{
-    padding: 10px;
+.site-navigation-item {
+    margin-bottom: 25px;
+}
+
+.site-navigation-item a {
+  font-size: 14px;
+  line-height: 18px;
+  color: #9d3e28;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.site-navigation-item a:hover {
+  color: #aa5540;
+}
+
+.site-navigation-item a:active {
+  color: #541f1d;
 }
 
 main {
@@ -45,6 +77,7 @@ main {
     box-sizing: border-box;
     flex: 4;
     font-size: 21px;
+    width: auto;
 }
 
 p{

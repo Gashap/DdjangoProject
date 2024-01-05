@@ -7,15 +7,17 @@
     <title>Востребованность</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body bgcolor="white">
+<body>
     <header>
-        <p>
-            <img src="{% static '/images/logo.jpg' %}" width="64" height="64" alt="Логотип сайта">
-        </p>
-        <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
+        <div class="page-header">
+            <p>
+                <img class="logo" src="{% static '/images/logo.jpg' %}" alt="Логотип сайта">
+            </p>
+            <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
+        </div>    
     </header>
-    <div class="main-block" style="display: flex">
-        <nav>
+    <div class="block">
+        <nav class="main-navigation">
             <ul class="site-navigation">
                 <li class="site-navigation-item">
                     <a href="{%  url '' %}">Главная</a>
@@ -36,9 +38,13 @@
         </nav>
         <main>
             <h2>Динамика уровня зарплат и количества вакансий</h2>
-            <p>Тут будет таблица</p>
-            <div>
-                <img src="{% static '/images/plot.png' %}" alt="График">
+            <div class="demain-table-block">
+                <p>Таблица зарплат и вакансий</p>
+                <table>{{ 'static/demain_table.html' }}</table>
+            </div>
+            <div class="demain-graph-block">
+                <p>Грифики зарплат и вакансий</p>
+                <img class="demain-graph-img" src="{% static '/images/plot.png' %}" alt="График">
             </div>
         </main>
     </div>

@@ -60,9 +60,6 @@ def create_currency_table():
 	data.to_sql('mytable', engine, if_exists='replace', index=False)
 
 
-create_currency_table()
-
-
 def get_demain_info():
 	create_currency_table()
 
@@ -75,12 +72,14 @@ def get_demain_info():
 	vacancies['year'] = vacancies['published_at'].str[0:4]
 	vacancies['salary'] = get_curent_salary(vacancies)
 
-	vacancies_with_sum_count = vacancies.groupby('year').agg(['sum', 'count'])
+	vacancies_with_sum_count = vacancies.groupby(['year']).agg(['sum', 'count'])
 	vacancies_with_sum_count = vacancies_with_sum_count['salary']
 
 	year_salary = years.copy()
 	for index, row in vacancies_with_sum_count.iterrows():
-		year_salary[int(index)] = int(row['sum'] // row['count'])
+		s = row['sum']
+		c = row['count']
+		year_salary[int(index)] = int(s // c)
 
 	year_count = years.copy()
 	for index, row in vacancies_with_sum_count.iterrows():
@@ -108,7 +107,7 @@ def get_demain_graph(year_salary, year_count, year_salary_filtered, year_count_f
 	# График динамики уровня зарплат по годам
 	plt.subplot(2, 2, 1)
 	plt.plot(list(year_salary.keys()), list(year_salary.values()))
-	plt.title('Динамика уровня зарплат по годам')
+	plt.title('Динамика уровня средней зарплаты по годам')
 	plt.xlabel('Год')
 	plt.ylabel('Уровень зарплат')
 
@@ -122,7 +121,7 @@ def get_demain_graph(year_salary, year_count, year_salary_filtered, year_count_f
 	# График динамики уровня зарплат по годам для выбранной профессии
 	plt.subplot(2, 2, 3)
 	plt.plot(list(year_salary_filtered.keys()), list(year_salary_filtered.values()))
-	plt.title('Динамика уровня зарплат по годам\nдля профессии Java-разработчика')
+	plt.title('Динамика уровня средней зарплаты по годам\nдля профессии Java-разработчика')
 	plt.xlabel('Год')
 	plt.ylabel('Уровень зарплат')
 
@@ -180,16 +179,16 @@ def get_curent_salary(df):
 		if pd.isna(row['salary_from']) and pd.isna(row['salary_to']) or currency is None:
 			salary = 0
 		elif pd.isna(row['salary_from']):
-			salary = int(row['salary_to'] * currency)
+			salary = int(row['salary_to'] / currency)
 		elif pd.isna(row['salary_to']):
-			salary = int(row['salary_from'] * currency)
+			salary = int(row['salary_from'] / currency)
 		else:
-			salary = int(((row['salary_from'] * currency) + (row['salary_to'] * currency)) // 2)
+			salary = int(((row['salary_from'] / currency) + (row['salary_to'] / currency)) // 2)
 
 		salaries[int(index)] = salary
 
 	return salaries
 
 
-get_demain_info()
+# get_demain_info()
 

@@ -1,6 +1,7 @@
 import sqlite3
 
 import pandas as pd
+from bs4 import BeautifulSoup
 
 
 def create_currency_table():
@@ -9,13 +10,10 @@ def create_currency_table():
 	from datetime import datetime
 	from sqlalchemy import create_engine
 
-	# Определите URL API
 	url = "https://www.cbr.ru/scripts/XML_daily.asp"
 
-	# Определите валюты, которые вам нужны
 	currencies = ["BYR", "USD", "EUR", "KZT", "UAH", "AZN", "KGS", "UZS", "GEL"]
 
-	# Создайте файл CSV
 	with open("vacancies_website/static/currency_table.csv", "w", newline="") as file:
 		writer = csv.writer(file)
 		writer.writerow(["date"] + currencies)
@@ -24,31 +22,25 @@ def create_currency_table():
 		date = datetime(2017, 1, 1)
 		end_date = datetime(2023, 12, 1)
 		while date <= end_date:
-			# Получите данные с API
 			response = requests.get(url, params={"date_req": date.strftime("%d/%m/%Y")})
-			data = response.content.decode("windows-1251")
 
-			# Извлеките курсы валют
-			rates = []
-			for currency in currencies:
-				start = data.find("<CharCode>" + currency + "</CharCode>")
-				if start != -1:
-					start = data.find("<Value>", start) + 7
-					end = data.find("</Value>", start)
-					rate = data[start:end].replace(",", ".")
-					rates.append(float(rate))
-				elif currency == "BYR" and start == -1:
-					start = data.find("<Value>", 887) + 7
-					end = data.find("</Value>", 887)
-					rate = data[start:end].replace(",", ".")
-					rates.append(float(rate))
-				else:
-					rates.append("")
+			soup = BeautifulSoup(response.content, 'xml')
+			valutes = soup.find_all('Valute')
 
-			# Запишите данные в CSV
+			rates = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+			for valute in range(len(valutes)):
+				if valutes[valute].CharCode.text in currencies or valutes[valute].CharCode.text == "BYN":
+					course = valutes[valute].Value.text.replace(',', '.')
+					nominal = valutes[valute].Nominal.text
+					value = round(float(course) / float(nominal), 8)
+
+					if valutes[valute].CharCode.text == "BYN":
+						rates[currencies.index('BYR')] = value
+					else:
+						rates[currencies.index(valutes[valute].CharCode.text)] = value
+
 			writer.writerow([date.strftime("%Y-%m")] + rates)
 
-			# Перейдите к следующему месяцу
 			if date.month == 12:
 				date = date.replace(year=date.year + 1, month=1)
 			else:
@@ -71,6 +63,7 @@ def get_curent_salary(df):
 	salaries = df['salary_from'].copy()
 
 	for index, row in df.iterrows():
+		va = row['salary_currency']
 		salary = 0
 		date = str(row['published_at'][:7])
 		currency = 1
@@ -85,12 +78,15 @@ def get_curent_salary(df):
 		if pd.isna(row['salary_from']) and pd.isna(row['salary_to']) or currency is None:
 			salary = 0
 		elif pd.isna(row['salary_from']):
-			salary = int(row['salary_to'] / currency)
+			salary = int(row['salary_to'] * currency)
 		elif pd.isna(row['salary_to']):
-			salary = int(row['salary_from'] / currency)
+			salary = int(row['salary_from'] * currency)
 		else:
-			salary = int(((row['salary_from'] / currency) + (row['salary_to'] / currency)) // 2)
+			salary = int(((row['salary_from'] * currency) + (row['salary_to'] * currency)) // 2)
 
 		salaries[int(index)] = salary
 
 	return salaries
+
+
+# get_curent_salary(pd.read_csv("C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"))

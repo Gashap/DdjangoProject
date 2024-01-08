@@ -98,6 +98,10 @@ p{
     padding-left: 15px;
 }
 
+.geo-graph-img {
+    padding-top: -200px;
+}
+
 .main-block{
     min-height: 553px;
 }

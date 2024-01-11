@@ -4,10 +4,7 @@ from matplotlib import pyplot as plt
 from vacancies_website.currency import get_curent_salary
 
 
-def get_geograpgy_info():
-	file_name = "C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"
-	vac_name = 'java'
-	vacancies = pd.read_csv(file_name)
+def get_geograpgy_info(vacancies, vac_name):
 	pd.set_option('display.max_columns', None)
 
 	vacancies['year'] = vacancies['published_at'].str[0:4]
@@ -42,6 +39,7 @@ def get_geograpgy_info():
 	area_percent = list(sorted(area_percent.items(), key=lambda x: x[1], reverse=True))
 
 	get_geography_graph(area_salary_all, area_percent_all, area_salary, area_percent)
+	get_geography_table(area_salary_all, area_percent_all, area_salary, area_percent)
 
 
 def get_geography_graph(area_salary_all, area_percent_all, area_salary, area_percent):
@@ -56,7 +54,7 @@ def get_geography_graph(area_salary_all, area_percent_all, area_salary, area_per
 	plt.bar(area_names, salaries)
 	plt.xlabel('Город')
 	plt.ylabel('Уровень зарплат')
-	plt.title('Уровень зарплат по всем городам (в порядке убывания)')
+	plt.title('Уровень зарплат по городам (в порядке убывания)')
 
 	# График процентов
 	plt.subplot(4, 1, 2)
@@ -66,7 +64,7 @@ def get_geography_graph(area_salary_all, area_percent_all, area_salary, area_per
 	plt.bar(area_names, percents)
 	plt.xlabel('Город')
 	plt.ylabel('Доля вакансий')
-	plt.title('Доля вакансий по всем городам (в порядке убывания)')
+	plt.title('Доля вакансий по городам (в порядке убывания)')
 
 	# График зарплат
 	plt.subplot(4, 1, 3)
@@ -76,7 +74,7 @@ def get_geography_graph(area_salary_all, area_percent_all, area_salary, area_per
 	plt.bar(area_names, salaries)
 	plt.xlabel('Город')
 	plt.ylabel('Уровень зарплат')
-	plt.title('Уровень зарплат по городам (в порядке убывания)')
+	plt.title('Уровень зарплат Java-разработчика по городам (в порядке убывания)')
 
 	# График процентов
 	plt.subplot(4, 1, 4)
@@ -86,9 +84,23 @@ def get_geography_graph(area_salary_all, area_percent_all, area_salary, area_per
 	plt.bar(area_names, percents)
 	plt.xlabel('Город')
 	plt.ylabel('Доля вакансий')
-	plt.title('Доля вакансий по городам (в порядке убывания)')
+	plt.title('Доля вакансий Java-разработчика по городам (в порядке убывания)')
 
 	plt.savefig('vacancies_website/static/images/plot_geo')
 
 
-get_geograpgy_info()
+def get_geography_table(area_salary_all, area_percent_all, area_salary, area_percent):
+	df_salary_all = pd.DataFrame(area_salary_all, columns=['Город', 'Уровень зарплат'])
+	df_percent_all = pd.DataFrame(area_percent_all, columns=['Город', 'Доля вакансий'])
+	df_salary = pd.DataFrame(area_salary, columns=['Город', 'Уровень зарплат'])
+	df_percent = pd.DataFrame(area_percent, columns=['Город', 'Доля вакансий'])
+
+	df_all = pd.merge(df_salary_all, df_percent_all, on='Город', suffixes=('_salary_all', '_percent_all'))
+	df = pd.merge(df_salary, df_percent, on='Город', suffixes=('_salary', '_percent'))
+
+	df_final = pd.merge(df_all, df, on='Город')
+
+	df_final.to_html('templates/georaphy_table.html', encoding='utf-8', index=False)
+
+
+# get_geograpgy_info()

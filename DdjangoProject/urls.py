@@ -26,7 +26,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name=''),
     path('demain/', views.demand_page, name='demand_page'),
+    path('demain_table/', views.demain_table, name='demain_table'),
     path('geography/', views.geography_page, name='geography_page'),
+    path('geography_table/', views.geography_table, name='geography_table'),
     path('skills/', views.skills_page, name='skills_page'),
     path('vacancies/', views.vacancies_page, name='vacancies_page')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

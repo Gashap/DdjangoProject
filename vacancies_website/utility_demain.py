@@ -1,16 +1,11 @@
-import sqlite3
-
 import pandas as pd
 from matplotlib import pyplot as plt
 
 from vacancies_website.currency import get_curent_salary
 
 
-def get_demain_info():
+def get_demain_info(vacancies, vac_name):
 	years = {key: 0 for key in range(2017, 2024)}
-	file_name = "C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"
-	vac_name = 'java'
-	vacancies = pd.read_csv(file_name)
 	pd.set_option('display.max_columns', None)
 
 	vacancies['year'] = vacancies['published_at'].str[0:4]
@@ -42,6 +37,7 @@ def get_demain_info():
 		year_count_filtered[int(index)] = int(row['count'])
 
 	get_demain_graph(year_salary, year_count, year_salary_filtered, year_count_filtered)
+	get_demain_table(year_salary, year_count, year_salary_filtered, year_count_filtered)
 
 
 def get_demain_graph(year_salary, year_count, year_salary_filtered, year_count_filtered):
@@ -81,17 +77,17 @@ def get_demain_graph(year_salary, year_count, year_salary_filtered, year_count_f
 
 
 def get_demain_table(year_salary, year_count, year_salary_filtered, year_count_filtered):
-	year = [2017]
-	i = 0
-	while i in year and i < 2024:
-		year.append(i+1)
 
 	results = pd.DataFrame({
-		# 'Год': year,
-		'Динамика уровня зарплат по годам': year_salary,
-		'Динамика количества вакансий по годам': year_count,
-		'Динамика уровня зарплат по годам для выбранной профессии': year_salary_filtered,
-		'Динамика количества вакансий по годам для выбранной профессии': year_count_filtered
+		'Год': list(year_salary.keys()),
+		'Динамика уровня средней зарплаты по годам': list(year_salary.values()),
+		'Динамика количества вакансий по годам': list(year_count.values()),
+		'Динамика уровня средней зарплаты по годам\nдля профессии Java-разработчика': list(year_salary_filtered.values()),
+		'Динамика количества вакансий по годам\nдля профессии Java-разработчика': list(year_count_filtered.values())
 	})
 
-	results.to_csv('vacancies_website/static/demain_table.csv', encoding='utf-8-sig', index=False)
+	results.to_html('templates/demain_table.html', encoding='utf-8', index=False)
+	# results.to_csv('C:/Users/eldo3/Downloads/exercise/demain_table.csv', encoding='utf-8-sig', index=False)
+
+
+# get_demain_info()

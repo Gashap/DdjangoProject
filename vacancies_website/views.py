@@ -35,7 +35,7 @@ def skills_page(request):
 def get_vacancies():
     url = "https://api.hh.ru/vacancies"
     params = {
-        "name": "Java",  # Замените на профессию, которую вы ищете
+        "name": "Java",
         "per_page": 10,
         "order_by": "publication_time",
     }

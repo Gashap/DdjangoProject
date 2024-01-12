@@ -9,17 +9,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Последние вакансии</h1>
-    <ul>
+    <h2>Последние вакансии</h2>
+    <ul class="vacancy-list">
         {% for vacancy in vacancies_page %}
-            <li>
-                <h2>{{ vacancy.name }}</h2>
-                <p>{{ vacancy.description|safe }}</p>
-                <p>Навыки: {{ vacancy.key_skills }}</p>
-                <p>Компания: {{ vacancy.employer.name }}</p>
-                <p>Оклад: {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
-                <p>Регион: {{ vacancy.area.name }}</p>
-                <p>Дата публикации: {{ vacancy.published_at }}</p>
+            <li class="vacancy-list-element">
+                <h3 class="vacancy-name">{{ vacancy.name }}</h3>
+                <article class="description-short">
+                    <div class="description">{{ vacancy.description|safe }}</div>
+                    <button class="more-button" type="button">Раскрыть</button>                    
+                </article>
+                <div class="vacancy-parametr">
+                    <p class="parametr"><strong>Навыки:</strong> {{ vacancy.key_skills }}</p>
+                    <p class="parametr"><strong>Компания:</strong> {{ vacancy.employer.name }}</p>
+                    <p class="parametr"><strong>Оклад:</strong> {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
+                    <p class="parametr"><strong>Регион:</strong> {{ vacancy.area.name }}</p>
+                    <p class="parametr"><strong>Дата публикации:</strong> {{ vacancy.published_at }}</p>
+                </div>
             </li>
         {% endfor %}
     </ul>

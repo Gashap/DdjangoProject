@@ -102,13 +102,27 @@ p {
     min-height: 553px;
 }
 
-.vacancies-list-element {
-    padding-bottom: 50px;
+.vacancy-name{
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
-/*.element-description {*/
-/*    line-height: 20px;*/
-/*}*/
+.description {
+    padding-top: 0;
+    overflow: hidden;
+    height: 110px;
+}
+
+.vacancy-parametr {
+    padding-top: 10px;
+    padding-left: 25px;
+    margin-bottom: 50px;
+}
+
+.parametr {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
 
 footer {
     background-color: #333;

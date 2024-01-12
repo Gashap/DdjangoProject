@@ -1,5 +1,6 @@
 let articleSections  = document.querySelectorAll('.description-short');
 
+
 for (let articleSection of articleSections) {
     let moreButton = articleSection.querySelector('.more-button');
     let moreText = articleSection.querySelector('.description');

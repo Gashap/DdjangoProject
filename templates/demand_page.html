@@ -1,56 +1,21 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Востребованность</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-        <div class="page-header">
-            <p>
-                <img class="logo" src="{% static '/images/logo.jpg' %}" alt="Логотип сайта">
-            </p>
-            <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
-        </div>    
-    </header>
-    <div class="block">
-        <nav class="main-navigation">
-            <ul class="site-navigation">
-                <li class="site-navigation-item">
-                    <a href="{%  url '' %}">Главная</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'demand_page' %}">Востребованность</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'geography_page' %}">География</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'skills_page' %}">Навыки</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
-                </li>
-            </ul>
-        </nav>
-        <main>
-            <h2>Динамика уровня зарплат и количества вакансий</h2>
-            <div class="demain-table-block">
-                <a href="{%  url 'demain_table' %}">Нажмите на меня, чтобы увидеть таблицу</a>
-            </div>
-            <div class="demain-graph-block">
-                <p>Грифики зарплат и вакансий</p>
-                <img class="demain-graph-img" src="{% static '/images/plot.png' %}" alt="График">
-            </div>
-        </main>
-    </div>
-    <footer>
-        <div><h3>ФИО студента:</h3> Штаппер Григорий Алексеевич</div>
-        <div><h3>Академическая группа:</h3> РИ-220944</div>
-    </footer>
-    
-</body>
-</html>
+{% block title %}
+Востребованность
+{% endblock %}
+
+{% block header %}
+Подробная информация о вакансиях с Java
+{% endblock %}
+
+{% block content %}
+<h2>Динамика уровня зарплат и количества вакансий</h2>
+<div class="demain-table-block">
+    {% include 'demain_table.html' %}
+</div>
+<div class="demain-graph-block">
+    <p>Грифики зарплат и вакансий</p>
+    <img class="demain-graph-img" src="{% static '/images/plot.png' %}" alt="График">
+</div>
+{% endblock %}

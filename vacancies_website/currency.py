@@ -19,7 +19,7 @@ def create_currency_table():
 		writer.writerow(["date"] + currencies)
 
 		# Пройдите через каждый месяц с 01.01.2003 по 01.06.2023
-		date = datetime(2002, 1, 1)
+		date = datetime(2017, 1, 1)
 		end_date = datetime(2023, 12, 1)
 		while date <= end_date:
 			response = requests.get(url, params={"date_req": date.strftime("%d/%m/%Y")})

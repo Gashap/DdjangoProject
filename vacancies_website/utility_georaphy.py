@@ -9,7 +9,6 @@ def get_geograpgy_info(vacancies, vac_name):
 
 	vacancies['year'] = vacancies['published_at'].str[0:4]
 	vacancies['salary'] = get_curent_salary(vacancies)
-	sl = vacancies['salary']
 
 	area_percent_all = {}
 	area_salary_all = {}
@@ -100,7 +99,7 @@ def get_geography_table(area_salary_all, area_percent_all, area_salary, area_per
 
 	df_final = pd.merge(df_all, df, on='Город')
 
-	df_final.to_html('templates/georaphy_table.html', encoding='utf-8', index=False)
+	df_final.to_html('templates/geography_table.html', encoding='utf-8', index=False)
 
 
 # get_geograpgy_info()

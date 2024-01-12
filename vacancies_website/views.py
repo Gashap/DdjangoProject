@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 
 from vacancies_website.currency import create_currency_table
@@ -31,13 +32,30 @@ def skills_page(request):
     return render(request, 'skills_page.html')
 
 
+def get_vacancies():
+    url = "https://api.hh.ru/vacancies"
+    params = {
+        "name": "Java",  # Замените на профессию, которую вы ищете
+        "per_page": 10,
+        "order_by": "publication_time",
+    }
+    response = requests.get(url, params=params)
+    vacancies = response.json()["items"][:10]
+
+    for vacancy in vacancies:
+        details_url = vacancy["url"]
+        details_response = requests.get(details_url)
+        details = details_response.json()
+        vacancy["description"] = details["description"]
+        vacancy["key_skills"] = ", ".join([skill["name"] for skill in details["key_skills"]])
+
+    return vacancies
+
+
 def vacancies_page(request):
-    return render(request, 'vacancies_page.html')
+    vacancies = get_vacancies()
+    return render(request, "vacancies_page.html", {"vacancies_page": vacancies})
 
 
-def demain_table(request):
-    return render(request, 'demain_table.html')
-
-
-def geography_table(request):
-    return render(request, 'georaphy_table.html')
+# def vacancies_page(request):
+#     return render(request, 'vacancies_page.html')

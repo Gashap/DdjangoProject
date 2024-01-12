@@ -16,9 +16,7 @@ def get_demain_info(vacancies, vac_name):
 
 	year_salary = years.copy()
 	for index, row in vacancies_with_sum_count.iterrows():
-		s = row['sum']
-		c = row['count']
-		year_salary[int(index)] = int(s // c)
+		year_salary[int(index)] = int(row['sum'] // row['count'])
 
 	year_count = years.copy()
 	for index, row in vacancies_with_sum_count.iterrows():
@@ -87,7 +85,6 @@ def get_demain_table(year_salary, year_count, year_salary_filtered, year_count_f
 	})
 
 	results.to_html('templates/demain_table.html', encoding='utf-8', index=False)
-	# results.to_csv('C:/Users/eldo3/Downloads/exercise/demain_table.csv', encoding='utf-8-sig', index=False)
 
 
 # get_demain_info()

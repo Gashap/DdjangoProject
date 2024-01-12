@@ -1,53 +1,18 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>География</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-        <div class="page-header">
-            <p>
-                <img class="logo" src="{% static '/images/logo.jpg' %}" alt="Логотип сайта">
-            </p>
-            <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
-        </div>    
-    </header>
-    <div class="block">
-        <nav class="main-navigation">
-            <ul class="site-navigation">
-                <li class="site-navigation-item">
-                    <a href="{%  url '' %}">Главная</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'demand_page' %}">Востребованность</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'geography_page' %}">География</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'skills_page' %}">Навыки</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
-                </li>
-            </ul>
-        </nav>
-        <main>
-            <h2>Доля вакансий и уровень зарплат по городам</h2>
-            <p>Тут будет таблица</p>
-            <div class="demain-graph-block">
-                <a href="{%  url 'geography_table' %}">Нажмите на меня, чтобы увидеть таблицу</a>
-                <img class="geo-graph-img" src="{% static '/images/plot_geo.png' %}" alt="График">
-            </div>
-        </main>
-    </div>
-    <footer>
-        <div><h3>ФИО студента:</h3> Штаппер Григорий Алексеевич</div>
-        <div><h3>Академическая группа:</h3> РИ-220944</div>
-    </footer>
-</body>
-</html>
+{% block title %}
+География
+{% endblock %}
+
+{% block header %}
+Подробная информация о вакансиях с Java
+{% endblock %}
+
+{% block content %}
+<h2>Доля вакансий и уровень зарплат по городам</h2>
+<div class="demain-graph-block">
+    {% include 'geography_table.html' %}
+    <img class="geo-graph-img" src="{% static '/images/plot_geo.png' %}" alt="График">
+</div>
+{% endblock %}

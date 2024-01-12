@@ -1,50 +1,26 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Последние вакансии</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-        <div class="page-header">
-            <p>
-                <img class="logo" src="{% static '/images/logo.jpg' %}" alt="Логотип сайта">
-            </p>
-            <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
-        </div>    
-    </header>
-    <div class="block">
-        <nav class="main-navigation">
-            <ul class="site-navigation">
-                <li class="site-navigation-item">
-                    <a href="{%  url '' %}">Главная</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'demand_page' %}">Востребованность</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'geography_page' %}">География</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'skills_page' %}">Навыки</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
-                </li>
-            </ul>
-        </nav>
-        <main>
-            <h2>Последние вакансии</h2>
-            <p>Тут будет таблица</p>
-            <p>Тут будет график</p>
-        </main>
-    </div>
-    <footer>
-        <div><h3>ФИО студента:</h3> Штаппер Григорий Алексеевич</div>
-        <div><h3>Академическая группа:</h3> РИ-220944</div>
-    </footer>
-</body>
-</html>
+{% block title %}
+Последние вакансии
+{% endblock %}
+
+{% block header %}
+Подробная информация о вакансиях с Java
+{% endblock %}
+
+{% block content %}
+  <h1>Последние вакансии</h1>
+  <ul>
+    {% for vacancy in vacancies_page %}
+      <li>
+        <h2>{{ vacancy.name }}</h2>
+        <p>{{ vacancy.description|safe }}</p>
+        <p>Навыки: {{ vacancy.key_skills }}</p>
+        <p>Компания: {{ vacancy.employer.name }}</p>
+        <p>Оклад: {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
+        <p>Регион: {{ vacancy.area.name }}</p>
+        <p>Дата публикации: {{ vacancy.published_at }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,67 +1,62 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Навыки</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-        <div class="page-header">
-            <p>
-                <img class="logo" src="{% static '/images/logo.jpg' %}" alt="Логотип сайта">
-            </p>
-            <h1 class="site-name">Подробная информация о вакансиях с Java</h1>
-        </div>    
-    </header>
-    <div class="block">
-        <nav class="main-navigation">
-            <ul class="site-navigation">
-                <li class="site-navigation-item">
-                    <a href="{%  url '' %}">Главная</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'demand_page' %}">Востребованность</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'geography_page' %}">География</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'skills_page' %}">Навыки</a>
-                </li>
-                <li class="site-navigation-item">
-                    <a href="{%  url 'vacancies_page' %}">Последние вакансии</a>
-                </li>
-            </ul>
-        </nav>
-        <main>
-            <h2>ТОП-20 навыков</h2>
-            <div>
-                <p>Грифики распределеня самых популярных навыков по годам</p>
-                <img class="demain-graph-img" src="{% static 'skill_plot2017.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2018.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2019.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2020.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2021.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2022.png' %}" width="100%" alt="">                                
-                <img class="demain-graph-img" src="{% static 'skill_plot2023.png' %}" width="100%" alt="">                                
-            </div>
-            <div>
-                <p>Грифики распределеня самых популярных навыков для Java-разработчика по годам</p>
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2017.png' %}" width="100%" alt="">
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2018.png' %}" width="100%" alt="">
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2019.png' %}" width="100%" alt="">
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2020.png' %}" width="100%" alt="">
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2021.png' %}" width="100%" alt="">
-                <img class="demain-graph-img" src="{% static 'sorted_skill_plot2022.png' %}" width="100%" alt="">
-            </div>
-        </main>
-    </div>
-    <footer>
-        <div><h3>ФИО студента:</h3> Штаппер Григорий Алексеевич</div>
-        <div><h3>Академическая группа:</h3> РИ-220944</div>
-    </footer>
-</body>
-</html>
+{% block title %}
+ТОП-20 навыков
+{% endblock %}
+
+{% block header %}
+Подробная информация о вакансиях с Java
+{% endblock %}
+
+{% block content %}
+<h2>ТОП-20 навыков</h2>
+<div>
+    <p>Грифики распределеня самых популярных навыков по годам</p>
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2003.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2004.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2005.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2006.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2007.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2008.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2009.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2010.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2011.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2012.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2013.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2014.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2015.png' %}" width="100%" alt="">                                #}
+{#    <img class="demain-graph-img" src="{% static 'skill_plot2016.png' %}" width="100%" alt="">                                #}
+    <img class="demain-graph-img" src="{% static 'skill_plot2017.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2018.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2019.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2020.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2021.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2022.png' %}" width="100%" alt="">                                
+    <img class="demain-graph-img" src="{% static 'skill_plot2023.png' %}" width="100%" alt="">                                
+</div>
+<div>
+    <p>Грифики распределеня самых популярных навыков для Java-разработчика по годам</p>
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2003.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2004.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2005.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2006.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2007.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2008.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2009.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2010.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2011.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2012.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2013.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2014.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2015.png' %}" width="100%" alt="">#}
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2016.png' %}" width="100%" alt="">#}
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2017.png' %}" width="100%" alt="">
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2018.png' %}" width="100%" alt="">
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2019.png' %}" width="100%" alt="">
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2020.png' %}" width="100%" alt="">
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2021.png' %}" width="100%" alt="">
+    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2022.png' %}" width="100%" alt="">
+{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2023.png' %}" width="100%" alt="">#}
+</div>
+{% endblock %}

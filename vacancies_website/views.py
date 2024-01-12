@@ -35,9 +35,7 @@ def skills_page(request):
 def get_vacancies():
     url = "https://api.hh.ru/vacancies"
     params = {
-        "name": "Java",
-        "per_page": 10,
-        "order_by": "publication_time",
+        "text": "Java"
     }
     response = requests.get(url, params=params)
     vacancies = response.json()["items"][:10]

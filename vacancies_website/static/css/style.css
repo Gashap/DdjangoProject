@@ -21,7 +21,7 @@ body {
     height: 70px;
 }
 
-.site-name{
+.site-name {
     font-size: 34px;
     margin-left: 22px;
 }
@@ -80,27 +80,35 @@ main {
     width: auto;
 }
 
-p{
+p {
     line-height: 30px;
 }
 
-.java-oop{
+.java-oop {
     display: flex;
     align-items: center;
 }
 
-.spring{
+.spring {
     display: flex;
     align-items: center;
 }
 
-.spring-txt{
+.spring-txt {
     padding-left: 15px;
 }
 
-.main-block{
+.main-block {
     min-height: 553px;
 }
+
+.vacancies-list-element {
+    padding-bottom: 50px;
+}
+
+/*.element-description {*/
+/*    line-height: 20px;*/
+/*}*/
 
 footer {
     background-color: #333;

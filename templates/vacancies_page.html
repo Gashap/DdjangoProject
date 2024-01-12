@@ -9,18 +9,18 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Последние вакансии</h1>
-  <ul>
-    {% for vacancy in vacancies_page %}
-      <li>
-        <h2>{{ vacancy.name }}</h2>
-        <p>{{ vacancy.description|safe }}</p>
-        <p>Навыки: {{ vacancy.key_skills }}</p>
-        <p>Компания: {{ vacancy.employer.name }}</p>
-        <p>Оклад: {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
-        <p>Регион: {{ vacancy.area.name }}</p>
-        <p>Дата публикации: {{ vacancy.published_at }}</p>
-      </li>
-    {% endfor %}
-  </ul>
+    <h1>Последние вакансии</h1>
+    <ul>
+        {% for vacancy in vacancies_page %}
+            <li>
+                <h2>{{ vacancy.name }}</h2>
+                <p>{{ vacancy.description|safe }}</p>
+                <p>Навыки: {{ vacancy.key_skills }}</p>
+                <p>Компания: {{ vacancy.employer.name }}</p>
+                <p>Оклад: {{ vacancy.salary.from }} - {{ vacancy.salary.to }} {{ vacancy.salary.currency }}</p>
+                <p>Регион: {{ vacancy.area.name }}</p>
+                <p>Дата публикации: {{ vacancy.published_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

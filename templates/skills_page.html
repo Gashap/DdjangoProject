@@ -10,7 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<h2>ТОП-20 навыков</h2>
+<h2>ТОП-20 навыков за всё время</h2>    
+{% include 'skills_table.html' %}    
+<h2>ТОП-20 навыков по годам</h2>
 <div>
     <p>Грифики распределеня самых популярных навыков по годам</p>
 {#    <img class="demain-graph-img" src="{% static 'skill_plot2003.png' %}" width="100%" alt="">                                #}
@@ -35,6 +37,7 @@
     <img class="demain-graph-img" src="{% static 'skill_plot2022.png' %}" width="100%" alt="">                                
     <img class="demain-graph-img" src="{% static 'skill_plot2023.png' %}" width="100%" alt="">                                
 </div>
+<h2>ТОП-20 навыков по годам для Java-разработчика</h2>
 <div>
     <p>Грифики распределеня самых популярных навыков для Java-разработчика по годам</p>
 {#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2003.png' %}" width="100%" alt="">#}

@@ -26,6 +26,7 @@ def geography_page(request):
 
 
 def skills_page(request):
+    Skills.get_top_skills_all_time(vacancies)
     Skills.get_top_skills(vacancies, vac_name)
     return render(request, 'skills_page.html')
 

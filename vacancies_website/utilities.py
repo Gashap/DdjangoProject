@@ -192,6 +192,24 @@ class Gegraphy:
 
 class Skills:
 	@staticmethod
+	def get_top_skills_all_time(vacancies):
+		pd.set_option('display.max_columns', None)
+
+		skills_list = []
+		for skill in vacancies['key_skills']:
+			skills_list += skill.split('\n')
+
+		vacancies_skills = Series(skills_list, name='vacancies_skills').value_counts()
+		top_skills = vacancies_skills[0:20].to_dict()
+
+		results = pd.DataFrame({
+			'Навыки': list(top_skills.keys()),
+			'Количество упоминаний': list(top_skills.values())
+		})
+
+		results.to_html('templates/skills_table.html', encoding='utf-8', index=False)
+
+	@staticmethod
 	def get_top_skills(vacancies, vac_name):
 		pd.set_option('display.max_columns', None)
 

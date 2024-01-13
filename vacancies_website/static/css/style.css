@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
@@ -29,7 +33,7 @@ body {
 .block {
     display: flex;
     flex-wrap: wrap;
-    width: 1366px;
+    width: 90%;
     margin: 0 auto;
     min-height: 300px;
 }
@@ -37,7 +41,7 @@ body {
 .main-navigation {
     background-color: #f2f2f2;
     box-sizing: content-box;
-    width: auto;
+    width: 90%;
     padding: 15px;
     flex: 1;
     top: calc(8px + 7em);
@@ -122,6 +126,29 @@ p {
 .parametr {
     margin-top: 5px;
     margin-bottom: 0;
+}
+
+.up-button {
+    position: fixed;
+    z-index: auto;
+    padding: 0;
+    bottom: 75px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    border: 3px solid #9d3e28;
+    border-radius: 50%;
+    display: none;
+    cursor: pointer;
+    margin-right: 82%;
+}
+
+.shown {
+    display: inline-block;
 }
 
 footer {

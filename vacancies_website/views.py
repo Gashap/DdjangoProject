@@ -2,9 +2,7 @@ import requests
 from django.shortcuts import render
 
 from vacancies_website.currency import create_currency_table
-from vacancies_website.utility_demain import *
-from vacancies_website.utility_georaphy import get_geograpgy_info
-from vacancies_website.utility_skills import get_top_skills
+from vacancies_website.utilities import *
 
 
 file_name = "C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"
@@ -18,17 +16,17 @@ def home_page(request):
 
 
 def demand_page(request):
-    get_demain_info(vacancies, vac_name)
+    Demain.get_demain_info(vacancies, vac_name)
     return render(request, 'demand_page.html')
 
 
 def geography_page(request):
-    get_geograpgy_info(vacancies, vac_name)
+    Gegraphy.get_geograpgy_info(vacancies, vac_name)
     return render(request, 'geography_page.html')
 
 
 def skills_page(request):
-    get_top_skills(vacancies, vac_name)
+    Skills.get_top_skills(vacancies, vac_name)
     return render(request, 'skills_page.html')
 
 
@@ -54,6 +52,3 @@ def vacancies_page(request):
     vacancies = get_vacancies()
     return render(request, "vacancies_page.html", {"vacancies_page": vacancies})
 
-
-# def vacancies_page(request):
-#     return render(request, 'vacancies_page.html')

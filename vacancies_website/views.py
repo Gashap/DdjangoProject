@@ -5,7 +5,7 @@ from vacancies_website.currency import create_currency_table
 from vacancies_website.utilities import *
 
 
-file_name = "C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"
+file_name = "vacancies_website/static/vacancies_for_learn_demo.csv"
 vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
 vac_name = 'java'
 

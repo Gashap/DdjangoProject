@@ -10,56 +10,58 @@
 {% endblock %}
 
 {% block content %}
-<h2>ТОП-20 навыков за всё время</h2>    
-{% include 'skills_table.html' %}    
-<h2>ТОП-20 навыков по годам</h2>
-<div>
-    <p>Грифики распределеня самых популярных навыков по годам</p>
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2003.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2004.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2005.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2006.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2007.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2008.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2009.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2010.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2011.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2012.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2013.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2014.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2015.png' %}" width="100%" alt="">                                #}
-{#    <img class="demain-graph-img" src="{% static 'skill_plot2016.png' %}" width="100%" alt="">                                #}
-    <img class="demain-graph-img" src="{% static 'skill_plot2017.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2018.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2019.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2020.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2021.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2022.png' %}" width="100%" alt="">                                
-    <img class="demain-graph-img" src="{% static 'skill_plot2023.png' %}" width="100%" alt="">                                
+<div class="skill-table-block table-block">
+    <h2>ТОП-20 навыков за всё время</h2>    
+    {% include 'skills_table.html' %}
 </div>
-<h2>ТОП-20 навыков по годам для Java-разработчика</h2>
-<div>
+<div class="skill-graph-block graph-block">
+    <h2>ТОП-20 навыков по годам</h2>
+    <p>Грифики распределеня самых популярных навыков по годам</p>
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2003.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2004.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2005.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2006.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2007.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2008.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2009.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2010.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2011.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2012.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2013.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2014.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2015.png' %}" width="100%" alt="">                                #}
+{#    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2016.png' %}" width="100%" alt="">                                #}
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2017.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2018.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2019.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2020.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2021.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2022.png' %}" width="100%" alt="">                                
+    <img class="skill-graph-img graph-img" src="{% static 'skill_plot2023.png' %}" width="100%" alt="">                                
+</div>
+<div class="sorted_skill-graph-block graph-block">
+    <h2>ТОП-20 навыков по годам для Java-разработчика</h2>
     <p>Грифики распределеня самых популярных навыков для Java-разработчика по годам</p>
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2003.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2004.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2005.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2006.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2007.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2008.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2009.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2010.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2011.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2012.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2013.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2014.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2015.png' %}" width="100%" alt="">#}
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2016.png' %}" width="100%" alt="">#}
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2017.png' %}" width="100%" alt="">
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2018.png' %}" width="100%" alt="">
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2019.png' %}" width="100%" alt="">
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2020.png' %}" width="100%" alt="">
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2021.png' %}" width="100%" alt="">
-    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2022.png' %}" width="100%" alt="">
-{#    <img class="demain-graph-img" src="{% static 'sorted_skill_plot2023.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2003.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2004.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2005.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2006.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2007.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2008.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2009.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2010.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2011.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2012.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2013.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2014.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2015.png' %}" width="100%" alt="">#}
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2016.png' %}" width="100%" alt="">#}
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2017.png' %}" width="100%" alt="">
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2018.png' %}" width="100%" alt="">
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2019.png' %}" width="100%" alt="">
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2020.png' %}" width="100%" alt="">
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2021.png' %}" width="100%" alt="">
+    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2022.png' %}" width="100%" alt="">
+{#    <img class="sorted_skill-graph-img graph-img" src="{% static 'sorted_skill_plot2023.png' %}" width="100%" alt="">#}
 </div>
 {% endblock %}

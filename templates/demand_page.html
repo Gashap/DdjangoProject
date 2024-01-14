@@ -10,12 +10,12 @@
 {% endblock %}
 
 {% block content %}
-<h2>Динамика уровня зарплат и количества вакансий</h2>
-<div class="demain-table-block">
+<div class="demain-table-block table-block">
+    <h2>Динамика уровня зарплат и количества вакансий</h2>
     {% include 'demain_table.html' %}
 </div>
-<div class="demain-graph-block">
-    <p>Грифики зарплат и вакансий</p>
-    <img class="demain-graph-img" src="{% static '/images/plot.png' %}" alt="График">
+<div class="demain-graph-block graph-block">
+    <h2>Грифики зарплат и вакансий</h2>
+    <img class="demain-graph-img graph-img" src="{% static '/images/plot.png' %}" alt="График">
 </div>
 {% endblock %}

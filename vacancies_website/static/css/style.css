@@ -41,8 +41,9 @@ body {
 .main-navigation {
     background-color: #f2f2f2;
     box-sizing: content-box;
-    width: 90%;
-    padding: 15px;
+    min-width: 180px;
+    max-width: 180px;
+    padding: 15px 15px;
     flex: 1;
     top: calc(8px + 7em);
     overflow-x: auto;
@@ -50,10 +51,14 @@ body {
 
 .site-navigation {
     text-align: center;
+    /*width: fit-content;*/
     z-index: 100;
     position: absolute;
     list-style: none;
     font-size:21px;
+    min-width: 180px;
+    max-width: 180px;
+    padding-left: 0;
 }
 
 .site-navigation-item {
@@ -104,6 +109,23 @@ p {
 
 .main-block {
     min-height: 553px;
+    min-width: 800px;
+}
+
+.table-block {
+    min-width: 800px;
+    margin-bottom: 50px;
+}
+
+.graph-img {
+    min-width: 800px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.vacancy-list-element {
+    margin-bottom: 100px;
 }
 
 .vacancy-list {
@@ -112,14 +134,14 @@ p {
 }
 
 .vacancy-name{
-    margin-top: 0;
+    margin-top: 20px;
     margin-bottom: 15px;
 }
 
 .description {
     margin-top: 0;
     padding-top: 0;
-    padding-left: 25px;
+    padding-left: 35px;
     overflow: hidden;
     height: 110px;
 }
@@ -134,9 +156,13 @@ p {
     margin-top: 0;
 }
 
+.more-button {
+    margin-left: 10px;
+}
+
 .vacancy-parametr {
     padding-top: 15px;
-    padding-left: 25px;
+    padding-left: 35px;
     margin-bottom: 60px;
 }
 
@@ -161,7 +187,7 @@ p {
     border-radius: 50%;
     display: none;
     cursor: pointer;
-    margin-right: 82%;
+    margin-right: 87%;
 }
 
 .shown {
@@ -177,20 +203,24 @@ footer {
 }
 
 table {
-  margin: 0 auto;
-  text-align: center;
-  border-collapse: collapse;
-  border: 1px solid #d4d4d4;
-}
-
-tr:nth-child(even) {
-  background: #d4d4d4;
-}
-
-th, td {
-  padding: 10px 30px;
+    margin: 0 auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #d4d4d4;
 }
 
 th {
-  border-bottom: 1px solid #d4d4d4;
+    text-align: left; !important;
+}
+
+tr:nth-child(even) {
+    background: #d4d4d4;
+}
+
+th, td {
+    padding: 10px 30px;
+}
+
+th {
+    border-bottom: 1px solid #d4d4d4;
 }

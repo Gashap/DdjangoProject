@@ -10,9 +10,12 @@
 {% endblock %}
 
 {% block content %}
-<h2>Доля вакансий и уровень зарплат по городам</h2>
-<div class="demain-graph-block">
+<div class="geography-table-block table-block">
+    <h2>Доля вакансий и уровень зарплат по городам</h2>
     {% include 'geography_table.html' %}
-    <img class="geo-graph-img" src="{% static '/images/plot_geo.png' %}" alt="График">
+</div>    
+<div class="geography-graph-block graph-block">
+    <h2>Графии доли вакансий и уровеня зарплат по городам</h2>
+    <img class="geo-graph-img graph-img" src="{% static '/images/plot_geo.png' %}" alt="График">
 </div>
 {% endblock %}

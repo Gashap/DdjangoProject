@@ -7,10 +7,10 @@ for (let articleSection of articleSections) {
     moreButton.onclick = function () {
         if (moreText.style.height === "110px") {
             moreText.style.height = "auto";
-            moreButton.innerHTML = "Скрыть";
+            moreButton.innerHTML = "Скрыть описание";
         } else {
             moreText.style.height = "110px";
-            moreButton.innerHTML = "Раскрыть";
+            moreButton.innerHTML = "Раскрыть описание";
         }
     }
 }

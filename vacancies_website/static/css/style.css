@@ -106,21 +106,38 @@ p {
     min-height: 553px;
 }
 
+.vacancy-list {
+    list-style: none;
+    padding-left: 0;
+}
+
 .vacancy-name{
     margin-top: 0;
     margin-bottom: 15px;
 }
 
 .description {
+    margin-top: 0;
     padding-top: 0;
+    padding-left: 25px;
     overflow: hidden;
     height: 110px;
 }
 
+.description > * {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.description > div > * {
+    padding-top: 0;
+    margin-top: 0;
+}
+
 .vacancy-parametr {
-    padding-top: 10px;
+    padding-top: 15px;
     padding-left: 25px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 }
 
 .parametr {

@@ -19,7 +19,7 @@ def create_currency_table():
 		writer.writerow(["date"] + currencies)
 
 		# Пройдите через каждый месяц с 01.01.2003 по 01.06.2023
-		date = datetime(2017, 1, 1)
+		date = datetime(2003, 1, 1)
 		end_date = datetime(2023, 12, 1)
 		while date <= end_date:
 			response = requests.get(url, params={"date_req": date.strftime("%d/%m/%Y")})
@@ -54,37 +54,42 @@ def create_currency_table():
 	data.to_sql('mytable', engine, if_exists='replace', index=False)
 
 
-def get_curent_salary(df):
-	database_name = 'mydatabase.db'
-	currency_table = 'mytable'
-
-	conn = sqlite3.connect(database_name)
-
-	salaries = df['salary_from'].copy()
-
-	for index, row in df.iterrows():
-		date = str(row['published_at'][:7])
-		currency = 1
-
-		if str(row['salary_currency']) != 'nan' and str(row['salary_currency']) != 'RUR':
-			sql_query = f"SELECT {str(row['salary_currency'])} FROM {currency_table} WHERE date = '{date}' "
-			cursor = conn.cursor()
-			cursor = cursor.execute(sql_query)
-
-			currency = cursor.fetchall()[0][0]
-
-		if pd.isna(row['salary_from']) and pd.isna(row['salary_to']) or currency is None:
-			salary = 0
-		elif pd.isna(row['salary_from']):
-			salary = int(row['salary_to'] * currency)
-		elif pd.isna(row['salary_to']):
-			salary = int(row['salary_from'] * currency)
-		else:
-			salary = int(((row['salary_from'] * currency) + (row['salary_to'] * currency)) // 2)
-
-		salaries[int(index)] = salary
-
-	return salaries
-
+# def get_curent_salary(vacancies_table):
+# 	database_name = 'mydatabase.db'
+# 	currency_table = 'mytable'
+#
+# 	conn = sqlite3.connect(database_name)
+# 	cursor = conn.cursor()
+#
+# 	sql_query = f"SELECT published_at, salary_from, salary_to, salary_currency FROM {vacancies_table};"
+# 	vacancies_salary = conn.execute(sql_query)
+# 	vacancies_salary = vacancies_salary.fetchall()
+#
+# 	for row in vacancies_salary:
+# 		date, salary_from, salary_to, salary_currency = row
+# 		y_m = date[:7]
+# 		currency = 1
+#
+# 		if salary_currency is not None and salary_currency != 'RUR':
+# 			sql_query = f"SELECT {salary_currency} FROM {currency_table} WHERE date = '{y_m}';"
+# 			cursor = conn.cursor()
+# 			currency = cursor.execute(sql_query)
+# 			currency = currency.fetchall()[0][0]
+#
+# 		if pd.isna(salary_from) and pd.isna(salary_to) or currency is None:
+# 			salary = 0
+# 		elif pd.isna(salary_from):
+# 			salary = int(salary_to * currency)
+# 		elif pd.isna(salary_to):
+# 			salary = int(salary_from * currency)
+# 		else:
+# 			salary = int(((salary_from * currency) + (salary_to * currency)) // 2)
+#
+# 		sql_q = f"UPDATE {vacancies_table} SET salary = ? WHERE published_at = ?;"
+# 		conn.execute(sql_q, (salary, date))
+# 		conn.commit()
+#
+# 		cursor.close()
+# 	conn.close()
 
 # get_curent_salary(pd.read_csv("C:/Users/eldo3/Downloads/example_vacancies/vacancies_for_learn_demo.csv"))

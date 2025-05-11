@@ -10,9 +10,9 @@ conn = sqlite3.connect('mydatabase.db', check_same_thread=False)
 vacancies_table = 'vacancies'
 currency_table = 'mytable'
 
-file_name = "C:/Users/eldo3/Downloads/vacancies.csv"
-vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
-vacancies = vacancies.to_sql(vacancies_table, conn, if_exists='replace', index=False)
+#file_name = "C:/Users/eldo3/Downloads/vacancies.csv"
+#vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
+#vacancies = vacancies.to_sql(vacancies_table, conn, if_exists='replace', index=False)
 vac_name = 'java'
 
 
@@ -278,63 +278,3 @@ class Gegraphy:
 		df_final = pd.merge(df_all, df, on='Город')
 
 		df_final.to_html('templates/geography_table.html', encoding='utf-8', index=False)
-
-
-class Skills:
-	@staticmethod
-	def get_top_skills_all_time():
-		pd.set_option('display.max_columns', None)
-
-		skills_list = []
-		for skill in vacancies['key_skills']:
-			skills_list += skill.split('\n')
-
-		vacancies_skills = Series(skills_list, name='vacancies_skills').value_counts()
-		top_skills = vacancies_skills[0:20].to_dict()
-
-		results = pd.DataFrame({
-			'Навыки': list(top_skills.keys()),
-			'Количество упоминаний': list(top_skills.values())
-		})
-
-		results.to_html('templates/skills_table.html', encoding='utf-8', index=False)
-
-	@staticmethod
-	def get_top_skills():
-
-		vacancies['year'] = vacancies['published_at'].str[0:4]
-		skills_by_year = vacancies.groupby(['year']).agg(['sum'])
-		skills_by_year = skills_by_year['key_skills']
-
-		for index, skills_list in skills_by_year.iterrows():
-			skills = str(skills_list['sum']).split('\n')
-			Skills.get_skills_graph(skills, index, False)
-
-		sorted_vacancies = vacancies.loc[vacancies['name'].str.contains(vac_name, na=False, case=False)]
-		sorted_skills_by_year = sorted_vacancies.groupby(['year']).agg(['sum'])
-		sorted_skills_by_year = sorted_skills_by_year['key_skills']
-
-		for index, skills_list in sorted_skills_by_year.iterrows():
-			skills = str(skills_list['sum']).split('\n')
-			Skills.get_skills_graph(skills, index, True)
-
-	@staticmethod
-	def get_skills_graph(skills, index, bool_sort):
-		slice = 16
-		for index_of_skill, skill in enumerate(skills):
-			if len(skills[index_of_skill]) > slice:
-				skills[index_of_skill] = f'{skill[:slice]}\n{skill[slice:slice * 2]}\n'
-
-		vacancies_skills = Series(skills, name='vacancies_skills').value_counts()
-		top_skills = vacancies_skills[0:20]
-
-		plt.figure(figsize=(18, 13))
-		plt.barh(list(top_skills.keys()), list(top_skills.values))
-		plt.title(f'ТОП-20 навыков в профессии Java-разработчика в {index} году')
-		plt.xlabel('Количество упомининйи')
-		plt.ylabel('Навыки')
-
-		if bool_sort:
-			plt.savefig(f'vacancies_website/static/images/sorted_skill_plot/sorted_skill_plot{index}')
-		else:
-			plt.savefig(f'vacancies_website/static/images/skill_plot/skill_plot{index}')

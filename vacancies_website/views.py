@@ -8,12 +8,11 @@ from vacancies_website.utilities import *
 
 
 # conn = sqlite3.connect('mydatabase.db', check_same_thread=False)
-# vacancies_table = 'vacancies'
-#
+vacancies_table = 'vacancies'
 # file_name = "C:/Users/eldo3/Downloads/vacancies.csv"
 # vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
 # vacancies = vacancies.to_sql(vacancies_table, conn, if_exists='replace', index=False)
-# vac_name = 'java'
+vac_name = 'java'
 
 
 def home_page(request):
@@ -33,7 +32,7 @@ def geography_page(request):
 
 def skills_page(request):
     # Skills.get_top_skills_all_time(vacancies)
-    Skills.get_top_skills(vacancies_table, vac_name)
+    # Skills.get_top_skills(vacancies_table, vac_name)
     return render(request, 'skills_page.html')
 
 

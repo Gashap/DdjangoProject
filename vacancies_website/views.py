@@ -40,8 +40,8 @@ def geography_page(request):
 
 
 def skills_page(request):
-    Skills.get_top_skills_all_time()
-    Skills.get_top_skills()
+    # Skills.get_top_skills_all_time()
+    # Skills.get_top_skills()
     return render(request, 'skills_page.html')
 
 

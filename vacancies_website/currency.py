@@ -1,8 +1,40 @@
-import sqlite3
-
+# import sqlite3
+import psycopg2
 import pandas as pd
 from bs4 import BeautifulSoup
 
+conn = psycopg2.connect('''
+    host=rc1a-qwdydbxcnzc37yim.mdb.yandexcloud.net
+    port=6432
+    sslmode=verify-full
+    dbname=db1
+    user=user1
+    password=12345678
+    target_session_attrs=read-write
+''')
+
+cur = conn.cursor()
+
+create_table_query = '''CREATE TABLE IF NOT EXISTS mytable
+(
+    id INTEGER PRIMARY KEY,
+    date VARCHAR(10) NOT NULL,
+    BYR  FLOAT       NOT NULL,
+    USD  FLOAT       NOT NULL,
+    EUR  FLOAT       NOT NULL,
+    KZT  FLOAT       NOT NULL,
+    UAH  FLOAT       NOT NULL,
+    AZN  FLOAT       NOT NULL,
+    KGS  FLOAT       NOT NULL,
+    UZS  FLOAT       NOT NULL,
+    GEL  FLOAT       NOT NULL
+)'''
+
+cur.execute(create_table_query)
+conn.commit()
+
+cur.close()
+conn.close()
 
 def create_currency_table():
 	import requests
@@ -14,7 +46,7 @@ def create_currency_table():
 
 	currencies = ["BYR", "USD", "EUR", "KZT", "UAH", "AZN", "KGS", "UZS", "GEL"]
 
-	with open("vacancies_website/static/currency_table.csv", "w", newline="") as file:
+	with open("vacancies_website/static/currency_table.csv", "w", newline="", encoding="utf-8") as file:
 		writer = csv.writer(file)
 		writer.writerow(["date"] + currencies)
 
@@ -46,10 +78,19 @@ def create_currency_table():
 			else:
 				date = date.replace(month=date.month + 1)
 
-	# Создайте движок SQLAlchemy
-	engine = create_engine('sqlite:///mydatabase.db')
+	# # Создайте движок SQLAlchemy
+	# engine = create_engine('sqlite:///mydatabase.db')
+	# # Загрузите данные из CSV-файла
+	# data = pd.read_csv('vacancies_website/static/currency_table.csv')
+	# # Запишите данные в таблицу SQL
+	# data.to_sql('mytable', engine, if_exists='replace', index=False)
+
+	# Создайте движок SQLAlchemy для PostgreSQL
+	engine = create_engine(f'postgresql://user1:12345678@6432:rc1a-qwdydbxcnzc37yim.mdb.yandexcloud.net/db1')
+
 	# Загрузите данные из CSV-файла
 	data = pd.read_csv('vacancies_website/static/currency_table.csv')
+
 	# Запишите данные в таблицу SQL
 	data.to_sql('mytable', engine, if_exists='replace', index=False)
 

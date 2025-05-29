@@ -1,6 +1,7 @@
 import psycopg2
 import boto3
 import pandas as pd
+from django.db import transaction
 # from django.db.backends import sqlite3
 from matplotlib import pyplot as plt
 from sqlalchemy import create_engine
@@ -36,8 +37,8 @@ s3.download_file('java-site', 'vacancies.csv', 'vacancies.csv')
 vacancies_table = 'vacancies'
 currency_table = 'mytable'
 #
-file_name = "vacancies.csv"
-vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
+# file_name = "vacancies.csv"
+# vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
 # vacancies = vacancies.to_sql(vacancies_table, conn, if_exists='replace', index=False)
 vac_name = 'java'
 
@@ -45,11 +46,14 @@ vac_name = 'java'
 class Demain:
     @staticmethod
     def get_demain_info():
+
+        transaction.rollback()
+
         years = {key: 0 for key in range(2003, 2024)}
         cursor = conn.cursor()
 
-        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN year VARCHAR;")
-        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN salary INTEGER;")
+        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN IF NOT EXISTS year VARCHAR;")
+        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN IF NOT EXISTS salary INTEGER;")
         conn.commit()
         cursor.execute(f"UPDATE {vacancies_table} SET year = SUBSTRING(published_at, 1, 4);")
         conn.commit()
@@ -61,7 +65,7 @@ class Demain:
         currency_query = f"""UPDATE {vacancies_table} SET salary = 
 							CASE 
 								WHEN salary_from IS NULL AND salary_to IS NULL OR salary_currency IS NULL THEN 0
-								ELSE ((salary_from + salary_to) / 2) * (
+								ELSE ((salary_from::float + salary_to::float) / 2) * (
 									CASE 
 										WHEN salary_currency = 'BYR' THEN (SELECT BYR FROM {currency_table} WHERE date = (SELECT SUBSTRING(published_at, 1, 7) FROM {vacancies_table}))
 										WHEN salary_currency = 'USD' THEN (SELECT USD FROM {currency_table} WHERE date = (SELECT SUBSTRING(published_at, 1, 7) FROM {vacancies_table}))
@@ -82,8 +86,8 @@ class Demain:
         conn.commit()
 
         vacancies_all = f"SELECT year, SUM(salary) AS sum_salary, COUNT(*) AS count_vacancies FROM {vacancies_table} GROUP BY year;"
-        vacancies_all = cursor.execute(vacancies_all)
-        vacancies_all = vacancies_all.fetchall()
+        cursor.execute(vacancies_all)
+        vacancies_all = cursor.fetchall()
 
         year_salary = years.copy()
         for row in range(len(vacancies_all)):
@@ -97,8 +101,8 @@ class Demain:
 
         vacancies_group_by_year = f"""SELECT year, SUM(salary) AS sum_salary, COUNT(*) AS count_vacancies
 								FROM {vacancies_table} WHERE LOWER(name) LIKE LOWER('%{vac_name}%') GROUP BY year;"""
-        vacancies_group_by_year = conn.execute(vacancies_group_by_year)
-        vacancies_group_by_year = vacancies_group_by_year.fetchall()
+        vacancies_group_by_year = cursor.execute(vacancies_group_by_year)
+        vacancies_group_by_year = cursor.fetchall()
 
         year_salary_filtered = years.copy()
         for row in range(len(vacancies_group_by_year)):
@@ -150,7 +154,7 @@ class Demain:
         plt.tight_layout()
 
         plt.savefig('vacancies_website/static/images/plot')
-        s3.upload_file('vacancies_website/static/images/plot.png', 'bucket-name', 'images/plot.png')
+        s3.upload_file('vacancies_website/static/images/plot.png', 'java-site', 'images/plot.png')
 
     @staticmethod
     def get_demain_table(year_salary, year_count, year_salary_filtered, year_count_filtered):
@@ -170,9 +174,11 @@ class Gegraphy:
     @staticmethod
     def get_geograpgy_info():
 
+        transaction.rollback()
+
         cursor = conn.cursor()
-        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN year TEXT;")
-        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN salary INTEGER;")
+        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN IF NOT EXISTS year VARCHAR;")
+        cursor.execute(f"ALTER TABLE {vacancies_table} ADD COLUMN IF NOT EXISTS salary INTEGER;")
         conn.commit()
 
         cursor.execute(f"UPDATE {vacancies_table} SET year = SUBSTRING(published_at, 1, 4);")
@@ -187,7 +193,7 @@ class Gegraphy:
         currency_query = f"""UPDATE {vacancies_table} SET salary = 
 									CASE 
 										WHEN salary_from IS NULL AND salary_to IS NULL OR salary_currency IS NULL THEN 0
-										ELSE ((salary_from + salary_to) / 2) * (
+										ELSE ((salary_from::float + salary_to::float) / 2) * (
 											CASE 
 												WHEN salary_currency = 'BYR' THEN (SELECT BYR FROM {currency_table} WHERE date = (SELECT SUBSTRING(published_at, 1, 7) FROM {vacancies_table}))
 												WHEN salary_currency = 'USD' THEN (SELECT USD FROM {currency_table} WHERE date = (SELECT SUBSTRING(published_at, 1, 7) FROM {vacancies_table}))
@@ -211,8 +217,8 @@ class Gegraphy:
         area_percent_all = {}
 
         sql_query = f"SELECT area_name, SUM(salary) AS sum_salary, COUNT(*) AS count_vacancies FROM {vacancies_table} GROUP BY area_name;"
-        all_vacancies_grouped_by_area = cursor.execute(sql_query)
-        all_vacancies_grouped_by_area = all_vacancies_grouped_by_area.fetchall()
+        cursor.execute(sql_query)
+        all_vacancies_grouped_by_area = cursor.fetchall()
 
         for row in range(len(all_vacancies_grouped_by_area)):
             area_name, sum_salary, count_vacancies = all_vacancies_grouped_by_area[row]
@@ -225,8 +231,8 @@ class Gegraphy:
 
         vacancies_grouped_by_area = f"""SELECT area_name, SUM(salary) AS sum_salary, COUNT(*) AS count_vacancies
 						FROM vacancies WHERE LOWER(name) LIKE LOWER('%{vac_name}%') GROUP BY area_name;"""
-        vacancies_grouped_by_area = cursor.execute(vacancies_grouped_by_area)
-        vacancies_grouped_by_area = vacancies_grouped_by_area.fetchall()
+        cursor.execute(vacancies_grouped_by_area)
+        vacancies_grouped_by_area = cursor.fetchall()
 
         # sorted_vacancies = vacancies.loc[vacancies['name'].str.contains(vac_name, na=False, case=False)]
         # vacancies_grouped_by_area = sorted_vacancies.groupby('area_name').agg(['sum', 'count'])['salary']
@@ -292,7 +298,7 @@ class Gegraphy:
         plt.title('Доля вакансий Java-разработчика по городам (в порядке убывания)')
 
         plt.savefig('vacancies_website/static/images/plot_geo')
-        s3.upload_file('vacancies_website/static/images/plot_geo.png', 'bucket-name', 'images/plot_geo.png')
+        s3.upload_file('vacancies_website/static/images/plot_geo.png', 'java-site', 'images/plot_geo.png')
 
     @staticmethod
     def get_geography_table(area_salary_all, area_percent_all, area_salary, area_percent):
@@ -309,65 +315,65 @@ class Gegraphy:
         df_final.to_html('templates/geography_table.html', encoding='utf-8', index=False)
 
 
-class Skills:
-    @staticmethod
-    def get_top_skills_all_time():
-        pd.set_option('display.max_columns', None)
-
-        skills_list = []
-        for skill in vacancies['key_skills']:
-            skills_list += skill.split('\n')
-
-        vacancies_skills = Series(skills_list, name='vacancies_skills').value_counts()
-        top_skills = vacancies_skills[0:20].to_dict()
-
-        results = pd.DataFrame({
-            'Навыки': list(top_skills.keys()),
-            'Количество упоминаний': list(top_skills.values())
-        })
-
-        results.to_html('templates/skills_table.html', encoding='utf-8', index=False)
-
-    @staticmethod
-    def get_top_skills():
-
-        vacancies['year'] = vacancies['published_at'].str[0:4]
-        skills_by_year = vacancies.groupby(['year']).agg(['sum'])
-        skills_by_year = skills_by_year['key_skills']
-
-        for index, skills_list in skills_by_year.iterrows():
-            skills = str(skills_list['sum']).split('\n')
-            Skills.get_skills_graph(skills, index, False)
-
-        sorted_vacancies = vacancies.loc[vacancies['name'].str.contains(vac_name, na=False, case=False)]
-        sorted_skills_by_year = sorted_vacancies.groupby(['year']).agg(['sum'])
-        sorted_skills_by_year = sorted_skills_by_year['key_skills']
-
-        for index, skills_list in sorted_skills_by_year.iterrows():
-            skills = str(skills_list['sum']).split('\n')
-            Skills.get_skills_graph(skills, index, True)
-
-    @staticmethod
-    def get_skills_graph(skills, index, bool_sort):
-        slice = 16
-        for index_of_skill, skill in enumerate(skills):
-            if len(skills[index_of_skill]) > slice:
-                skills[index_of_skill] = f'{skill[:slice]}\n{skill[slice:slice * 2]}\n'
-
-        vacancies_skills = Series(skills, name='vacancies_skills').value_counts()
-        top_skills = vacancies_skills[0:20]
-
-        plt.figure(figsize=(18, 13))
-        plt.barh(list(top_skills.keys()), list(top_skills.values))
-        plt.title(f'ТОП-20 навыков в профессии Java-разработчика в {index} году')
-        plt.xlabel('Количество упомининйи')
-        plt.ylabel('Навыки')
-
-        if bool_sort:
-            plt.savefig(f'vacancies_website/static/images/sorted_skill_plot/sorted_skill_plot{index}')
-            s3.upload_file(f'vacancies_website/static/images/sorted_skill_plot/sorted_skill_plot{index}.png',
-                           'bucket-name', f'images/sorted_skill_plot/sorted_skill_plot{index}.png.png')
-        else:
-            plt.savefig(f'vacancies_website/static/images/skill_plot/skill_plot{index}')
-            s3.upload_file(f'vacancies_website/static/images/skill_plot/skill_plot{index}.png',
-                           'bucket-name', f'images/skill_plot/skill_plot{index}.png.png')
+# class Skills:
+#     @staticmethod
+#     def get_top_skills_all_time():
+#         pd.set_option('display.max_columns', None)
+#
+#         skills_list = []
+#         for skill in vacancies['key_skills']:
+#             skills_list += skill.split('\n')
+#
+#         vacancies_skills = Series(skills_list, name='vacancies_skills').value_counts()
+#         top_skills = vacancies_skills[0:20].to_dict()
+#
+#         results = pd.DataFrame({
+#             'Навыки': list(top_skills.keys()),
+#             'Количество упоминаний': list(top_skills.values())
+#         })
+#
+#         results.to_html('templates/skills_table.html', encoding='utf-8', index=False)
+#
+#     @staticmethod
+#     def get_top_skills():
+#
+#         vacancies['year'] = vacancies['published_at'].str[0:4]
+#         skills_by_year = vacancies.groupby(['year']).agg(['sum'])
+#         skills_by_year = skills_by_year['key_skills']
+#
+#         for index, skills_list in skills_by_year.iterrows():
+#             skills = str(skills_list['sum']).split('\n')
+#             Skills.get_skills_graph(skills, index, False)
+#
+#         sorted_vacancies = vacancies.loc[vacancies['name'].str.contains(vac_name, na=False, case=False)]
+#         sorted_skills_by_year = sorted_vacancies.groupby(['year']).agg(['sum'])
+#         sorted_skills_by_year = sorted_skills_by_year['key_skills']
+#
+#         for index, skills_list in sorted_skills_by_year.iterrows():
+#             skills = str(skills_list['sum']).split('\n')
+#             Skills.get_skills_graph(skills, index, True)
+#
+#     @staticmethod
+#     def get_skills_graph(skills, index, bool_sort):
+#         slice = 16
+#         for index_of_skill, skill in enumerate(skills):
+#             if len(skills[index_of_skill]) > slice:
+#                 skills[index_of_skill] = f'{skill[:slice]}\n{skill[slice:slice * 2]}\n'
+#
+#         vacancies_skills = Series(skills, name='vacancies_skills').value_counts()
+#         top_skills = vacancies_skills[0:20]
+#
+#         plt.figure(figsize=(18, 13))
+#         plt.barh(list(top_skills.keys()), list(top_skills.values))
+#         plt.title(f'ТОП-20 навыков в профессии Java-разработчика в {index} году')
+#         plt.xlabel('Количество упомининйи')
+#         plt.ylabel('Навыки')
+#
+#         if bool_sort:
+#             plt.savefig(f'vacancies_website/static/images/sorted_skill_plot/sorted_skill_plot{index}')
+#             s3.upload_file(f'vacancies_website/static/images/sorted_skill_plot/sorted_skill_plot{index}.png',
+#                            'bucket-name', f'images/sorted_skill_plot/sorted_skill_plot{index}.png.png')
+#         else:
+#             plt.savefig(f'vacancies_website/static/images/skill_plot/skill_plot{index}')
+#             s3.upload_file(f'vacancies_website/static/images/skill_plot/skill_plot{index}.png',
+#                            'bucket-name', f'images/skill_plot/skill_plot{index}.png.png')

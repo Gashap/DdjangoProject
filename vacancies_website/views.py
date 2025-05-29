@@ -8,6 +8,15 @@ from vacancies_website.utilities import *
 
 
 # conn = sqlite3.connect('mydatabase.db', check_same_thread=False)
+conn = psycopg2.connect("""
+    host=rc1a-qwdydbxcnzc37yim.mdb.yandexcloud.net
+    port=6432
+    sslmode=verify-full
+    dbname=db1
+    user=user1
+    password=12345678
+    target_session_attrs=read-write
+""")
 vacancies_table = 'vacancies'
 # file_name = "C:/Users/eldo3/Downloads/vacancies.csv"
 # vacancies = pd.read_csv(file_name, dtype={'name': str, 'key_skills': str, 'published_at': str})
@@ -16,23 +25,23 @@ vac_name = 'java'
 
 
 def home_page(request):
-    # create_currency_table()
+    create_currency_table()
     return render(request, 'home_page.html')
 
 
 def demand_page(request):
-    # Demain.get_demain_info()
+    Demain.get_demain_info()
     return render(request, 'demand_page.html')
 
 
 def geography_page(request):
-    # Gegraphy.get_geograpgy_info()
+    Gegraphy.get_geograpgy_info()
     return render(request, 'geography_page.html')
 
 
 def skills_page(request):
-    # Skills.get_top_skills_all_time(vacancies)
-    # Skills.get_top_skills(vacancies_table, vac_name)
+    Skills.get_top_skills_all_time()
+    Skills.get_top_skills()
     return render(request, 'skills_page.html')
 
 

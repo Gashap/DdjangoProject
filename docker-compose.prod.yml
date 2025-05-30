@@ -17,7 +17,7 @@ services:
       - DB_NAME=db
       - DB_USER=user1
       - DB_PASSWORD=12345678
-  db:
+  postgres:
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data/

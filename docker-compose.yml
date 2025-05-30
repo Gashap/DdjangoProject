@@ -13,9 +13,9 @@ services:
       - POSTGRES_DB=db1
 
   django:
-    build: ./DdjangoProject
-#        context: .
-#        dockerfile: Dockerfile
+    build:
+        context: .
+        dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./app/:/usr/src/app/

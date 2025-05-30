@@ -1,7 +1,7 @@
 # app/Dockerfile
 
 # pull official base image
-FROM python:3.12-alpine
+FROM python:3.12
 
 # set work directory
 WORKDIR /usr/src/DdjangoProject

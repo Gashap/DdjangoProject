@@ -4,7 +4,7 @@
 FROM python:3.12-alpine
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/DdjangoProject
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
